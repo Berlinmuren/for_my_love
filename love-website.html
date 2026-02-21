@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>For You 💕</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Lato:wght@300;400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --rose: #e8667a;
+    --blush: #f7c5ce;
+    --cream: #fff5f7;
+    --deep: #8b2d3f;
+    --soft: #fde8ed;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Lato', sans-serif;
+    background: var(--cream);
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* Floating hearts background */
+  .hearts-bg {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    pointer-events: none;
+    z-index: 0;
+    overflow: hidden;
+  }
+
+  .heart-float {
+    position: absolute;
+    font-size: 1.2rem;
+    opacity: 0;
+    animation: floatUp linear infinite;
+  }
+
+  @keyframes floatUp {
+    0% { opacity: 0; transform: translateY(100vh) rotate(0deg); }
+    10% { opacity: 0.4; }
+    90% { opacity: 0.2; }
+    100% { opacity: 0; transform: translateY(-10vh) rotate(360deg); }
+  }
+
+  /* Header */
+  header {
+    position: relative;
+    z-index: 10;
+    text-align: center;
+    padding: 60px 20px 30px;
+  }
+
+  header h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.5rem, 8vw, 5rem);
+    color: var(--deep);
+    font-style: italic;
+    animation: fadeDown 1s ease forwards;
+    opacity: 0;
+  }
+
+  header p {
+    font-size: 1rem;
+    color: var(--rose);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin-top: 8px;
+    animation: fadeDown 1s 0.3s ease forwards;
+    opacity: 0;
+  }
+
+  @keyframes fadeDown {
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* Nav tabs */
+  nav {
+    position: relative;
+    z-index: 10;
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    padding: 0 20px 40px;
+    animation: fadeDown 1s 0.5s ease forwards;
+    opacity: 0;
+  }
+
+  nav button {
+    background: white;
+    border: 2px solid var(--blush);
+    color: var(--rose);
+    padding: 10px 22px;
+    border-radius: 50px;
+    font-family: 'Lato', sans-serif;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  nav button:hover, nav button.active {
+    background: var(--rose);
+    border-color: var(--rose);
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(232, 102, 122, 0.3);
+  }
+
+  /* Main content area */
+  main {
+    position: relative;
+    z-index: 10;
+    max-width: 700px;
+    margin: 0 auto;
+    padding: 0 20px 60px;
+  }
+
+  .tab-content {
+    display: none;
+    animation: fadeIn 0.5s ease;
+  }
+
+  .tab-content.active {
+    display: block;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(15px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* Card style */
+  .card {
+    background: white;
+    border-radius: 24px;
+    padding: 40px;
+    box-shadow: 0 10px 40px rgba(232, 102, 122, 0.12);
+  }
+
+  /* Love Letter */
+  .letter-paper {
+    background: white;
+    border-radius: 24px;
+    padding: 50px 45px;
+    box-shadow: 0 10px 40px rgba(232, 102, 122, 0.15);
+    position: relative;
+    border-left: 4px solid var(--blush);
+  }
+
+  .letter-paper::before {
+    content: '❝';
+    font-family: 'Playfair Display', serif;
+    font-size: 5rem;
+    color: var(--blush);
+    position: absolute;
+    top: 10px;
+    left: 20px;
+    line-height: 1;
+  }
+
+  .letter-paper h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.8rem;
+    color: var(--deep);
+    margin-bottom: 25px;
+    margin-top: 20px;
+  }
+
+  .letter-paper p {
+    color: #666;
+    line-height: 1.9;
+    font-size: 1rem;
+    margin-bottom: 18px;
+    font-weight: 300;
+  }
+
+  .letter-paper .signature {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: 1.4rem;
+    color: var(--rose);
+    margin-top: 30px;
+  }
+
+  /* Reminders / Notes */
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem;
+    color: var(--deep);
+    margin-bottom: 20px;
+  }
+
+  .reminder-item {
+    background: var(--soft);
+    border-left: 3px solid var(--rose);
+    border-radius: 0 12px 12px 0;
+    padding: 14px 20px;
+    margin-bottom: 12px;
+    color: #555;
+    font-weight: 300;
+    font-size: 0.95rem;
+    transition: transform 0.2s;
+  }
+
+  .reminder-item:hover {
+    transform: translateX(5px);
+  }
+
+  /* Music */
+  .playlist-item {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 16px;
+    border-radius: 16px;
+    margin-bottom: 10px;
+    background: var(--soft);
+    transition: all 0.3s;
+    cursor: pointer;
+  }
+
+  .playlist-item:hover {
+    background: var(--blush);
+    transform: scale(1.01);
+  }
+
+  .song-icon {
+    width: 48px;
+    height: 48px;
+    background: linear-gradient(135deg, var(--rose), var(--deep));
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    flex-shrink: 0;
+  }
+
+  .song-info h4 {
+    color: var(--deep);
+    font-size: 0.95rem;
+    font-weight: 400;
+  }
+
+  .song-info p {
+    color: #999;
+    font-size: 0.8rem;
+    margin-top: 2px;
+  }
+
+  .song-duration {
+    margin-left: auto;
+    color: var(--rose);
+    font-size: 0.85rem;
+  }
+
+  /* Gallery */
+  .gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+  }
+
+  .gallery-item {
+    border-radius: 20px;
+    overflow: hidden;
+    aspect-ratio: 1;
+    background: linear-gradient(135deg, var(--blush), var(--soft));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 3rem;
+    position: relative;
+    cursor: pointer;
+    transition: transform 0.3s;
+  }
+
+  .gallery-item:hover {
+    transform: scale(1.03);
+  }
+
+  .gallery-item .gallery-label {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(139, 45, 63, 0.7);
+    color: white;
+    text-align: center;
+    padding: 10px;
+    font-size: 0.8rem;
+    letter-spacing: 0.1em;
+    backdrop-filter: blur(4px);
+  }
+
+  /* Password screen */
+  #password-screen {
+    position: fixed;
+    inset: 0;
+    background: var(--cream);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .password-card {
+    background: white;
+    padding: 50px 45px;
+    border-radius: 28px;
+    box-shadow: 0 10px 50px rgba(232, 102, 122, 0.2);
+    text-align: center;
+    width: 90%;
+    max-width: 400px;
+    animation: bounceIn 0.8s forwards;
+  }
+
+  @keyframes bounceIn {
+    0% { opacity: 0; transform: scale(0.6); }
+    60% { transform: scale(1.05); }
+    80% { transform: scale(0.97); }
+    100% { opacity: 1; transform: scale(1); }
+  }
+
+  .password-card .lock-icon {
+    font-size: 3rem;
+    margin-bottom: 10px;
+  }
+
+  .password-card h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.6rem;
+    color: var(--deep);
+    margin-bottom: 8px;
+  }
+
+  .password-card p {
+    color: #aaa;
+    font-size: 0.85rem;
+    margin-bottom: 25px;
+    font-weight: 300;
+  }
+
+  .password-card input {
+    width: 100%;
+    border: 2px solid var(--blush);
+    border-radius: 14px;
+    padding: 14px 20px;
+    font-size: 1rem;
+    text-align: center;
+    color: var(--deep);
+    outline: none;
+    background: var(--soft);
+    font-family: 'Lato', sans-serif;
+    transition: border-color 0.3s;
+    margin-bottom: 15px;
+  }
+
+  .password-card input:focus {
+    border-color: var(--rose);
+  }
+
+  .password-card button {
+    width: 100%;
+    background: linear-gradient(135deg, var(--rose), var(--deep));
+    color: white;
+    border: none;
+    border-radius: 14px;
+    padding: 14px;
+    font-size: 1rem;
+    cursor: pointer;
+    font-family: 'Lato', sans-serif;
+    letter-spacing: 0.05em;
+    transition: opacity 0.3s, transform 0.2s;
+  }
+
+  .password-card button:hover {
+    opacity: 0.9;
+    transform: translateY(-2px);
+  }
+
+  .error-msg {
+    color: var(--rose);
+    font-size: 0.8rem;
+    margin-top: -8px;
+    margin-bottom: 10px;
+    display: none;
+  }
+
+  /* Shake animation */
+  @keyframes shake {
+    0%,100%{transform:translateX(0)}
+    25%{transform:translateX(-8px)}
+    75%{transform:translateX(8px)}
+  }
+
+  .shake { animation: shake 0.4s ease; }
+
+  /* Hint */
+  .hint {
+    color: #ccc;
+    font-size: 0.78rem;
+    margin-top: 12px;
+    cursor: pointer;
+  }
+  .hint:hover { color: var(--rose); }
+</style>
+</head>
+<body>
+
+<!-- Password Screen -->
+<div id="password-screen">
+  <div class="password-card" id="pwd-card">
+    <div class="lock-icon">🔐</div>
+    <h2>For My Love</h2>
+    <p>Enter the password to open your gift 💕</p>
+    <input type="password" id="pwd-input" placeholder="Enter password..." onkeydown="if(event.key==='Enter')checkPwd()">
+    <p class="error-msg" id="error-msg">Wrong password, try again 💔</p>
+    <button onclick="checkPwd()">Open 💌</button>
+    <p class="hint" onclick="showHint()">Need a hint?</p>
+  </div>
+</div>
+
+<!-- Floating hearts -->
+<div class="hearts-bg" id="hearts-bg"></div>
+
+<header>
+  <h1>Made for You 💕</h1>
+  <p>a little corner of the internet, just for us</p>
+</header>
+
+<nav>
+  <button class="active" onclick="showTab('letter', this)">💌 Love Letter</button>
+  <button onclick="showTab('music', this)">🎵 Our Music</button>
+  <button onclick="showTab('reminders', this)">📝 Reminders</button>
+  <button onclick="showTab('gallery', this)">🖼️ Gallery</button>
+</nav>
+
+<main>
+  <!-- Love Letter Tab -->
+  <div class="tab-content active" id="tab-letter">
+    <div class="letter-paper">
+      <h2>My Dearest,</h2>
+      <p>
+        I made this little space on the internet just for you — because you deserve something that's entirely yours, 
+        built with love, one line of code at a time.
+      </p>
+      <p>
+        Every single day with you feels like the best chapter of a book I never want to put down. 
+        You make ordinary moments extraordinary just by being in them.
+      </p>
+      <p>
+        I love you more than I know how to say, so I built you this instead. 
+        It might just be a website, but every pixel here holds a little piece of my heart.
+      </p>
+      <p>
+        You are my favorite person in the world. That will never change. 💕
+      </p>
+      <div class="signature">Forever yours 🌹</div>
+    </div>
+  </div>
+
+  <!-- Music Tab -->
+  <div class="tab-content" id="tab-music">
+    <div class="card">
+      <h3 class="section-title">🎵 Our Playlist</h3>
+      <p style="color:#bbb;font-size:0.85rem;margin-bottom:20px;font-weight:300;">Songs that remind me of you</p>
+
+      <div class="playlist-item">
+        <div class="song-icon">♪</div>
+        <div class="song-info">
+          <h4>Perfect</h4>
+          <p>Ed Sheeran</p>
+        </div>
+        <span class="song-duration">4:23</span>
+      </div>
+      <div class="playlist-item">
+        <div class="song-icon">♫</div>
+        <div class="song-info">
+          <h4>All of Me</h4>
+          <p>John Legend</p>
+        </div>
+        <span class="song-duration">4:29</span>
+      </div>
+      <div class="playlist-item">
+        <div class="song-icon">♪</div>
+        <div class="song-info">
+          <h4>A Thousand Years</h4>
+          <p>Christina Perri</p>
+        </div>
+        <span class="song-duration">4:45</span>
+      </div>
+      <div class="playlist-item">
+        <div class="song-icon">♫</div>
+        <div class="song-info">
+          <h4>Can't Help Falling in Love</h4>
+          <p>Elvis Presley</p>
+        </div>
+        <span class="song-duration">3:01</span>
+      </div>
+      <div class="playlist-item">
+        <div class="song-icon">♪</div>
+        <div class="song-info">
+          <h4>Lover</h4>
+          <p>Taylor Swift</p>
+        </div>
+        <span class="song-duration">3:41</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Reminders Tab -->
+  <div class="tab-content" id="tab-reminders">
+    <div class="card">
+      <h3 class="section-title">📝 Some Reminders</h3>
+      <p style="color:#bbb;font-size:0.85rem;margin-bottom:20px;font-weight:300;">Little things I want you to remember 🌸</p>
+
+      <div class="reminder-item">💧 Drink your water today</div>
+      <div class="reminder-item">🍽️ Please eat on time, don't skip meals</div>
+      <div class="reminder-item">😴 Get enough sleep, you need rest</div>
+      <div class="reminder-item">🌸 Take care of yourself always</div>
+      <div class="reminder-item">💕 You are loved, every single day</div>
+      <div class="reminder-item">✨ You are beautiful, inside and out</div>
+      <div class="reminder-item">🤗 Reach out whenever you need me, I'm always here</div>
+      <div class="reminder-item">❤️ You're mine... always</div>
+    </div>
+  </div>
+
+  <!-- Gallery Tab -->
+  <div class="tab-content" id="tab-gallery">
+    <div class="card">
+      <h3 class="section-title">🖼️ Our Gallery</h3>
+      <p style="color:#bbb;font-size:0.85rem;margin-bottom:20px;font-weight:300;">Moments I never want to forget</p>
+      <div class="gallery-grid">
+        <div class="gallery-item">🌸<div class="gallery-label">Day One</div></div>
+        <div class="gallery-item">🌅<div class="gallery-label">Our Sunsets</div></div>
+        <div class="gallery-item">🥂<div class="gallery-label">Celebrating Us</div></div>
+        <div class="gallery-item">💕<div class="gallery-label">Always & Forever</div></div>
+      </div>
+      <p style="color:#ccc;font-size:0.8rem;text-align:center;margin-top:20px;font-weight:300;">
+        Add your photos here to fill this with real memories 📸
+      </p>
+    </div>
+  </div>
+</main>
+
+<script>
+  // ---- PASSWORD ----
+  // CHANGE "iloveyou" to your actual password below!
+  const PASSWORD = "iloveyou";
+
+  function checkPwd() {
+    const val = document.getElementById('pwd-input').value;
+    const err = document.getElementById('error-msg');
+    if (val === PASSWORD) {
+      document.getElementById('password-screen').style.opacity = '0';
+      document.getElementById('password-screen').style.transition = 'opacity 0.6s';
+      setTimeout(() => document.getElementById('password-screen').style.display = 'none', 600);
+      createHearts();
+    } else {
+      const card = document.getElementById('pwd-card');
+      err.style.display = 'block';
+      card.classList.remove('shake');
+      void card.offsetWidth;
+      card.classList.add('shake');
+    }
+  }
+
+  function showHint() {
+    alert('💕 Hint: It\'s three words that say everything');
+  }
+
+  // ---- TABS ----
+  function showTab(id, btn) {
+    document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('nav button').forEach(b => b.classList.remove('active'));
+    document.getElementById('tab-' + id).classList.add('active');
+    btn.classList.add('active');
+  }
+
+  // ---- FLOATING HEARTS ----
+  function createHearts() {
+    const bg = document.getElementById('hearts-bg');
+    const emojis = ['❤️','💕','💗','💖','🌸','✨','💝'];
+    for (let i = 0; i < 20; i++) {
+      const h = document.createElement('div');
+      h.className = 'heart-float';
+      h.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+      h.style.left = Math.random() * 100 + 'vw';
+      h.style.animationDuration = (8 + Math.random() * 12) + 's';
+      h.style.animationDelay = (Math.random() * 5) + 's';
+      h.style.fontSize = (0.8 + Math.random() * 1.4) + 'rem';
+      bg.appendChild(h);
+    }
+  }
+</script>
+</body>
+</html>
