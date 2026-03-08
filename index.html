@@ -641,7 +641,7 @@ body.rainy .footer-text em{color:var(--rain-blue2)}
   <section id="hero">
     <div class="hero-inner">
       <div class="hero-tag">✦ Made with love ✦</div>
-      <h1 class="hero-title"><span class="line1">You Mean</span><span class="line2">The World To Me</span><span class="line3">— Gracey, My First Love —</span></h1>
+      <h1 class="hero-title"><span class="line1">You Mean</span><span class="line2">The World To Me</span><span class="line3">— Gracey, My one and only —</span></h1>
       <p class="hero-sub">I built this little corner of the internet for us — because some feelings are too big for a text message, and we deserve more than ordinary.</p>
       <div class="hero-scroll"><div class="scroll-line"></div><span>scroll to explore</span><div class="scroll-line" style="transform:scaleX(0);background:linear-gradient(to left,transparent,var(--gold));"></div></div>
     </div>
@@ -914,7 +914,7 @@ function hint(){alert('💕 Hint: Your nickname — starts with G');}
 document.head.insertAdjacentHTML('beforeend','<style>@keyframes shake{0%,100%{transform:translateX(0)}20%{transform:translateX(-10px)}40%{transform:translateX(10px)}60%{transform:translateX(-7px)}80%{transform:translateX(7px)}}.shake{animation:shake 0.5s ease;}</style>');
 
 function spawnPetals(){
-  const c=document.getElementById('petals'),s=['🌸','✨','💕','🌹','💫','🌺','❤️'];
+  const c=document.getElementById('petals'),s=['🌸','✨','💕','🌹','💫','🌺','❤️','🤍'];
   for(let i=0;i<25;i++){const p=document.createElement('div');p.className='petal';p.textContent=s[Math.floor(Math.random()*s.length)];p.style.left=Math.random()*100+'vw';p.style.animationDuration=(10+Math.random()*15)+'s';p.style.animationDelay=(Math.random()*8)+'s';p.style.fontSize=(0.6+Math.random())+'rem';c.appendChild(p);}
 }
 
@@ -1177,9 +1177,7 @@ function toggleMode(el){
 }
 
 // ══ OUR TIME TOGETHER ══
-// START DATE — set to midnight the day you want to launch (tomorrow).
 // Format: new Date('YYYY-MM-DDTHH:MM:SS') in your local time
-// ⚠️  UPDATE THIS DATE before you show Gracey! ⚠️
 const LOVE_START = new Date('2026-03-08T13:10:00'); // ← CHANGE THIS
 
 const PAD = (n,len=2) => String(n).padStart(len,'0');
