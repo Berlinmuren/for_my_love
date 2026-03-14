@@ -219,8 +219,21 @@ body.rainy .t-btn.active{color:var(--rain-blue)}
 
 /* ═══ STILL BEATING — PARTICLE HEART ═══ */
 .beating-wrap{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:10px 20px 60px;text-align:center}
-.heart-canvas-wrap{position:relative;width:360px;height:360px;margin:0 auto 44px;flex-shrink:0}
-#heartCanvas{position:absolute;inset:0;width:100%;height:100%}
+.heart-stage{position:relative;width:340px;height:340px;display:flex;align-items:center;justify-content:center;margin:0 auto 52px}
+.halo{position:absolute;width:340px;height:340px;border-radius:50%;background:radial-gradient(circle,transparent 42%,rgba(212,60,100,0.05) 58%,rgba(212,60,100,0.12) 70%,rgba(212,60,100,0.04) 85%,transparent 100%);animation:haloBreathe 1.4s cubic-bezier(0.215,0.61,0.355,1) infinite;pointer-events:none}
+@keyframes haloBreathe{0%,100%{transform:scale(1);opacity:0.6}14%{transform:scale(1.18);opacity:1}42%{transform:scale(1.1);opacity:0.85}70%{transform:scale(1);opacity:0.6}}
+.ring-a{position:absolute;width:296px;height:296px;border-radius:50%;animation:spinCW 5s linear infinite;pointer-events:none}
+.ring-a::before{content:'';position:absolute;inset:0;border-radius:50%;background:conic-gradient(from 0deg,transparent 0%,transparent 15%,rgba(255,100,155,0.0) 25%,rgba(255,150,190,0.7) 42%,rgba(255,200,230,1) 50%,rgba(255,150,190,0.7) 58%,rgba(255,100,155,0.0) 75%,transparent 85%,transparent 100%);-webkit-mask:radial-gradient(circle,transparent 47.5%,black 48.5%,black 51.5%,transparent 52.5%);mask:radial-gradient(circle,transparent 47.5%,black 48.5%,black 51.5%,transparent 52.5%);filter:blur(2.5px)}
+.ring-b{position:absolute;width:252px;height:252px;border-radius:50%;animation:spinCCW 7s linear infinite;pointer-events:none}
+.ring-b::before{content:'';position:absolute;inset:0;border-radius:50%;background:conic-gradient(from 120deg,transparent 0%,transparent 20%,rgba(220,80,140,0.0) 30%,rgba(255,130,180,0.6) 46%,rgba(255,185,220,0.95) 50%,rgba(255,130,180,0.6) 54%,rgba(220,80,140,0.0) 70%,transparent 80%,transparent 100%);-webkit-mask:radial-gradient(circle,transparent 46%,black 47%,black 53%,transparent 54%);mask:radial-gradient(circle,transparent 46%,black 47%,black 53%,transparent 54%);filter:blur(1.8px)}
+.ring-c{position:absolute;width:210px;height:210px;border-radius:50%;animation:spinCW 3.5s linear infinite;pointer-events:none}
+.ring-c::before{content:'';position:absolute;inset:0;border-radius:50%;background:conic-gradient(from 240deg,transparent 0%,transparent 30%,rgba(255,160,200,0.5) 48%,rgba(255,220,240,0.8) 50%,rgba(255,160,200,0.5) 52%,transparent 70%,transparent 100%);-webkit-mask:radial-gradient(circle,transparent 46%,black 47%,black 53%,transparent 54%);mask:radial-gradient(circle,transparent 46%,black 47%,black 53%,transparent 54%);filter:blur(1.2px)}
+@keyframes spinCW{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
+@keyframes spinCCW{from{transform:rotate(0deg)}to{transform:rotate(-360deg)}}
+.heart-body{position:relative;z-index:10;animation:heartbeat 1.4s cubic-bezier(0.215,0.61,0.355,1) infinite;filter:drop-shadow(0 0 10px rgba(200,40,80,0.8)) drop-shadow(0 0 28px rgba(220,60,100,0.55)) drop-shadow(0 0 55px rgba(255,80,130,0.3))}
+@keyframes heartbeat{0%{transform:scale(1)}14%{transform:scale(1.22)}28%{transform:scale(1.08)}42%{transform:scale(1.17)}70%,100%{transform:scale(1)}}
+.spark{position:absolute;border-radius:50%;pointer-events:none;animation:sparkDrift linear infinite;z-index:8}
+@keyframes sparkDrift{0%{opacity:0;transform:translate(0px,0px) scale(0)}15%{opacity:1;transform:translate(var(--sx1),var(--sy1)) scale(1)}85%{opacity:0.3}100%{opacity:0;transform:translate(var(--sx2),var(--sy2)) scale(0.2)}}
 .hb-eyebrow{font-size:0.62rem;letter-spacing:0.4em;text-transform:uppercase;color:var(--gold);margin-bottom:14px;display:block}
 .hb-title{font-family:'Cormorant Garamond',serif;font-size:clamp(2rem,5vw,3.2rem);font-weight:300;font-style:italic;color:var(--white);line-height:1.15;margin-bottom:16px}
 .hb-title em{color:var(--gold2)}
@@ -229,9 +242,9 @@ body.rainy .t-btn.active{color:var(--rain-blue)}
 .hb-stat{flex:1;padding:26px 18px;text-align:center;border-right:1px solid var(--border);transition:background 0.3s}
 .hb-stat:last-child{border-right:none}
 .hb-stat:hover{background:rgba(255,255,255,0.04)}
-.hb-stat-num{font-family:'Cormorant Garamond',serif;font-size:2rem;font-weight:300;color:var(--gold2);line-height:1;margin-bottom:7px}
+.hb-stat-num{font-family:'Cormorant Garamond',serif;font-size:2rem;font-weight:300;color:var(--gold2);line-height:1;margin-bottom:7px;animation:statPulse 1.4s ease infinite}
+@keyframes statPulse{0%,100%{opacity:1}14%{opacity:0.55}42%{opacity:0.75}}
 .hb-stat-label{font-size:0.58rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--muted)}
-
 /* HARD DAYS */
 .hard-days-wrap{display:flex;flex-direction:column;align-items:center;padding:10px 0 60px;text-align:center}
 .mode-toggle-wrap{display:flex;align-items:center;justify-content:center;margin-bottom:52px}
@@ -712,11 +725,38 @@ body.rainy .footer-text em{color:var(--rain-blue2)}
     </div>
 
     <!-- ❤️ STILL BEATING — PARTICLE HEART -->
-    <div class="tab-panel" id="panel-beating">
-      <div class="beating-wrap">
-        <div class="heart-canvas-wrap">
-          <canvas id="heartCanvas"></canvas>
-        </div>
+    <!-- ❤️ STILL BEATING -->
+<div class="tab-panel" id="panel-beating">
+  <div class="beating-wrap">
+    <div class="heart-stage" id="heartStage">
+      <div class="halo"></div>
+      <div class="ring-a"></div>
+      <div class="ring-b"></div>
+      <div class="ring-c"></div>
+      <div class="heart-body">
+        <svg width="136" height="126" viewBox="0 0 136 126" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <radialGradient id="hBase" cx="38%" cy="32%" r="65%"><stop offset="0%" stop-color="#ff8fb0"/><stop offset="25%" stop-color="#e8264e"/><stop offset="55%" stop-color="#c01035"/><stop offset="85%" stop-color="#8c0820"/><stop offset="100%" stop-color="#6a0518"/></radialGradient>
+            <radialGradient id="hShadow" cx="72%" cy="72%" r="55%"><stop offset="0%" stop-color="#6a0518" stop-opacity="0.55"/><stop offset="100%" stop-color="#6a0518" stop-opacity="0"/></radialGradient>
+            <radialGradient id="hShine1" cx="28%" cy="22%" r="32%"><stop offset="0%" stop-color="#ffccd8" stop-opacity="0.92"/><stop offset="60%" stop-color="#ff90a8" stop-opacity="0.3"/><stop offset="100%" stop-color="#ff90a8" stop-opacity="0"/></radialGradient>
+            <radialGradient id="hShine2" cx="72%" cy="26%" r="22%"><stop offset="0%" stop-color="#ffb8cc" stop-opacity="0.5"/><stop offset="100%" stop-color="#ffb8cc" stop-opacity="0"/></radialGradient>
+            <radialGradient id="hGlow" cx="50%" cy="55%" r="40%"><stop offset="0%" stop-color="#ff4070" stop-opacity="0.18"/><stop offset="100%" stop-color="#ff4070" stop-opacity="0"/></radialGradient>
+            <filter id="hSoft"><feGaussianBlur stdDeviation="0.6"/></filter>
+          </defs>
+          <path d="M68,114 C68,114 8,74 8,36 C8,17 22,5 40,5 C51,5 61,11 68,21 C75,11 85,5 96,5 C114,5 128,17 128,36 C128,74 68,114 68,114 Z" fill="url(#hBase)"/>
+          <path d="M68,114 C68,114 8,74 8,36 C8,17 22,5 40,5 C51,5 61,11 68,21 C75,11 85,5 96,5 C114,5 128,17 128,36 C128,74 68,114 68,114 Z" fill="url(#hShadow)"/>
+          <path d="M68,114 C68,114 8,74 8,36 C8,17 22,5 40,5 C51,5 61,11 68,21 C75,11 85,5 96,5 C114,5 128,17 128,36 C128,74 68,114 68,114 Z" fill="url(#hGlow)"/>
+          <path d="M68,114 C68,114 8,74 8,36 C8,17 22,5 40,5 C51,5 61,11 68,21 C75,11 85,5 96,5 C114,5 128,17 128,36 C128,74 68,114 68,114 Z" fill="url(#hShine1)"/>
+          <path d="M68,114 C68,114 8,74 8,36 C8,17 22,5 40,5 C51,5 61,11 68,21 C75,11 85,5 96,5 C114,5 128,17 128,36 C128,74 68,114 68,114 Z" fill="url(#hShine2)"/>
+          <ellipse cx="44" cy="20" rx="9" ry="6" fill="rgba(255,240,248,0.55)" transform="rotate(-28,44,20)" filter="url(#hSoft)"/>
+          <ellipse cx="38" cy="16" rx="4" ry="2.5" fill="rgba(255,255,255,0.7)" transform="rotate(-28,38,16)"/>
+          <ellipse cx="94" cy="22" rx="6" ry="4" fill="rgba(255,220,235,0.35)" transform="rotate(-15,94,22)" filter="url(#hSoft)"/>
+          <path d="M68,90 Q62,72 56,58 Q50,44 48,32" stroke="rgba(140,8,32,0.16)" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+          <path d="M68,90 Q74,70 78,56 Q82,44 84,32" stroke="rgba(140,8,32,0.11)" stroke-width="1.2" fill="none" stroke-linecap="round"/>
+          <path d="M56,58 Q50,60 44,56" stroke="rgba(140,8,32,0.08)" stroke-width="1" fill="none" stroke-linecap="round"/>
+        </svg>
+      </div>
+    </div>
         <span class="hb-eyebrow">A living proof</span>
         <h2 class="hb-title">Still <em>Beating</em> — For You</h2>
         <p class="hb-sub">This heart beats for you, Gracey — every second, every hour, every day.<br>It does not rest. It does not waver. It only knows one name.</p>
@@ -933,228 +973,31 @@ function initReveal(){
 }
 
 // ══ PARTICLE HEART ENGINE ══
-const hCanvas = document.getElementById('heartCanvas');
-const hCtx    = hCanvas.getContext('2d');
-let heartParticles = [];
-let beatScale = 1;
-let beatDir   = 1;
-let beatPhase = 0;  // 0–1 oscillator driving the real heartbeat rhythm
+// ══ BEATING HEART ══
 let beatCount = 0;
-let hAnimFrame = null;
-let heartActive = false;
-
-// Heartbeat timing: lub-DUB pattern (like a real heart)
-// BPM ~72 → period = 833ms
-// Phase timeline: 0→0.14 first beat, 0.28→0.42 second beat, rest = diastole
-function heartBeatScale(phase) {
-  // Two-peak lub-DUB
-  function peak(p, center, width, height) {
-    const d = Math.abs(p - center);
-    return d < width ? height * Math.pow(1 - d/width, 1.8) : 0;
-  }
-  const s = 1
-    + peak(phase, 0.10, 0.10, 0.26)   // lub  (first, stronger)
-    + peak(phase, 0.30, 0.08, 0.18);  // DUB  (second, softer)
-  return Math.max(1, s);
-}
-
-function initHeartCanvas() {
-  const wrap = hCanvas.parentElement;
-  const size = wrap.offsetWidth;
-  hCanvas.width  = size * window.devicePixelRatio;
-  hCanvas.height = size * window.devicePixelRatio;
-  hCanvas.style.width  = size + 'px';
-  hCanvas.style.height = size + 'px';
-  hCtx.scale(window.devicePixelRatio, window.devicePixelRatio);
-  buildHeartParticles(size);
-}
-
-function heartX(t) {
-  // Parametric heart: x = 16sin³(t)
-  return 16 * Math.pow(Math.sin(t), 3);
-}
-function heartY(t) {
-  return 13*Math.cos(t) - 5*Math.cos(2*t) - 2*Math.cos(3*t) - Math.cos(4*t);
-}
-
-function buildHeartParticles(size) {
-  heartParticles = [];
-  const cx = size / 2;
-  const cy = size / 2;
-  const scale = size / 46;
-  const count = 2800;
-
-  for (let i = 0; i < count; i++) {
-    // Random point, rejection-sample inside heart
-    let px, py, inHeart = false;
-    let attempts = 0;
-    while (!inHeart && attempts < 200) {
-      attempts++;
-      // Sample near heart boundary + fill
-      const fill = Math.random() < 0.65; // 65% fill, 35% surface
-      if (fill) {
-        // Fill: random point in bounding box, keep if inside heart
-        const tx = (Math.random() - 0.5) * 34;
-        const ty = (Math.random() - 0.5) * 28;
-        // Test: approximate heart SDF
-        const nx = tx / 16, ny = -ty / 13;
-        const d = Math.pow(nx*nx + ny*ny - 1, 3) - nx*nx*ny*ny*ny;
-        if (d <= 0.05) { px = tx; py = ty; inHeart = true; }
-      } else {
-        // Surface: parametric with small jitter
-        const t = Math.random() * Math.PI * 2;
-        px = heartX(t) + (Math.random()-0.5) * 1.2;
-        py = -heartY(t) + (Math.random()-0.5) * 1.2;
-        inHeart = true;
-      }
-    }
-    if (!inHeart) continue;
-
-    // Distance from center for color/glow
-    const dist = Math.sqrt(px*px + py*py);
-    const maxDist = 18;
-    const normDist = Math.min(dist / maxDist, 1);
-
-    // Color: white-hot center → vivid pink → deep crimson edges
-    // Matching the reference image
-    const r = Math.floor(lerp(255, 220, normDist));
-    const g = Math.floor(lerp(200, 20, Math.pow(normDist, 0.6)));
-    const b = Math.floor(lerp(220, 60, Math.pow(normDist, 0.5)));
-
-    const baseAlpha = lerp(0.95, 0.35, normDist) * (0.5 + Math.random() * 0.5);
-    const particleSize = lerp(2.2, 0.5, normDist) * (0.4 + Math.random() * 0.8);
-
-    heartParticles.push({
-      baseX: cx + px * scale,
-      baseY: cy + py * scale,
-      ox: px, oy: py,          // original parametric coords
-      size: particleSize,
-      r, g, b,
-      alpha: baseAlpha,
-      normDist,
-      // Drift (gentle shimmer)
-      driftX: (Math.random()-0.5) * 0.4,
-      driftY: (Math.random()-0.5) * 0.4,
-      driftPhase: Math.random() * Math.PI * 2,
-      driftSpeed: 0.02 + Math.random() * 0.03,
-      // Twinkle
-      twinklePhase: Math.random() * Math.PI * 2,
-      twinkleSpeed: 0.05 + Math.random() * 0.08,
-    });
+function spawnSparks(){
+  const stage=document.getElementById('heartStage');if(!stage)return;
+  const colors=['rgba(255,120,170,0.95)','rgba(255,160,200,0.9)','rgba(255,80,130,0.9)','rgba(255,200,230,0.85)','rgba(220,60,100,0.9)'];
+  for(let i=0;i<7;i++){
+    const sp=document.createElement('div');sp.className='spark';
+    const angle=Math.random()*Math.PI*2,r1=75+Math.random()*35,r2=105+Math.random()*55;
+    sp.style.setProperty('--sx1',Math.cos(angle)*r1+'px');sp.style.setProperty('--sy1',Math.sin(angle)*r1+'px');
+    sp.style.setProperty('--sx2',Math.cos(angle)*r2+'px');sp.style.setProperty('--sy2',Math.sin(angle)*r2+'px');
+    sp.style.left='50%';sp.style.top='50%';sp.style.marginLeft='-2px';sp.style.marginTop='-2px';
+    const size=2+Math.random()*3.5;
+    sp.style.width=size+'px';sp.style.height=size+'px';
+    sp.style.background=colors[Math.floor(Math.random()*colors.length)];
+    sp.style.animationDuration=(1.0+Math.random()*1.4)+'s';sp.style.animationDelay=(Math.random()*0.3)+'s';
+    sp.style.boxShadow=`0 0 ${size*2}px ${colors[Math.floor(Math.random()*colors.length)]}`;
+    stage.appendChild(sp);setTimeout(()=>sp.remove(),2800);
   }
 }
-
-function lerp(a, b, t) { return a + (b-a) * t; }
-
-let lastTime = 0;
-const BEAT_PERIOD = 833; // ms → 72 bpm
-
-function drawHeart(timestamp) {
-  if (!heartActive) return;
-  hAnimFrame = requestAnimationFrame(drawHeart);
-
-  const dt = timestamp - lastTime;
-  lastTime = timestamp;
-
-  // Advance beat phase
-  beatPhase = (beatPhase + dt / BEAT_PERIOD) % 1;
-  const scale = heartBeatScale(beatPhase);
-
-  const wrap   = hCanvas.parentElement;
-  const size   = wrap.offsetWidth;
-  const cx     = size / 2;
-  const cy     = size / 2;
-  const scaleF = size / 46;
-
-  hCtx.clearRect(0, 0, size, size);
-
-  // Outer glow (canvas shadow behind everything)
-  hCtx.save();
-  const glowPulse = heartBeatScale(beatPhase);
-  const glowSize  = 28 + (glowPulse - 1) * 120;
-
-  // Draw a heart shape for the glow mask
-  hCtx.shadowBlur  = 0;
-  hCtx.shadowColor = 'transparent';
-
-  // Deep ambient glow radial
-  const grad = hCtx.createRadialGradient(cx, cy, 0, cx, cy, size * 0.48);
-  grad.addColorStop(0,   `rgba(255,80,140,${0.04 * glowPulse})`);
-  grad.addColorStop(0.4, `rgba(220,30,80,${0.06 * glowPulse})`);
-  grad.addColorStop(0.7, `rgba(180,10,50,${0.03 * glowPulse})`);
-  grad.addColorStop(1,   'rgba(0,0,0,0)');
-  hCtx.fillStyle = grad;
-  hCtx.fillRect(0, 0, size, size);
-  hCtx.restore();
-
-  // Draw particles
-  for (let i = 0; i < heartParticles.length; i++) {
-    const p = heartParticles[i];
-
-    // Drift shimmer
-    p.driftPhase += p.driftSpeed;
-    p.twinklePhase += p.twinkleSpeed;
-
-    const drift = Math.sin(p.driftPhase);
-    const dx = p.ox * scaleF * scale - p.ox * scaleF;
-    const dy = p.oy * scaleF * scale - p.oy * scaleF;
-
-    const px = p.baseX + dx + Math.sin(p.driftPhase * 0.7) * p.driftX * 3;
-    const py = p.baseY + dy + Math.cos(p.driftPhase * 0.8) * p.driftY * 3;
-
-    // Beat brightness pulse
-    const beatBoost = (scale - 1) * 3;
-    const twinkle   = 0.7 + 0.3 * Math.sin(p.twinklePhase);
-    const alpha     = Math.min(1, p.alpha * twinkle * (1 + beatBoost * (1 - p.normDist)));
-
-    // Draw glow for bright center particles
-    if (p.normDist < 0.4) {
-      hCtx.shadowBlur  = p.size * (6 + beatBoost * 10);
-      hCtx.shadowColor = `rgba(${p.r},${p.g},${p.b},${alpha * 0.8})`;
-    } else if (p.normDist < 0.7) {
-      hCtx.shadowBlur  = p.size * (3 + beatBoost * 5);
-      hCtx.shadowColor = `rgba(${p.r},${p.g},${p.b},${alpha * 0.5})`;
-    } else {
-      hCtx.shadowBlur  = p.size * 2;
-      hCtx.shadowColor = `rgba(200,30,70,${alpha * 0.3})`;
-    }
-
-    hCtx.fillStyle = `rgba(${p.r},${p.g},${p.b},${alpha})`;
-    hCtx.beginPath();
-    hCtx.arc(px, py, p.size * (0.8 + beatBoost * 0.5 * (1 - p.normDist)), 0, Math.PI * 2);
-    hCtx.fill();
-  }
-
-  // Central white flare on beat peak
-  if (scale > 1.1) {
-    const flareAlpha = (scale - 1.1) * 4;
-    const flareGrad = hCtx.createRadialGradient(cx, cy, 0, cx, cy, size * 0.22);
-    flareGrad.addColorStop(0,   `rgba(255,240,255,${Math.min(0.5, flareAlpha * 0.6)})`);
-    flareGrad.addColorStop(0.3, `rgba(255,160,200,${Math.min(0.2, flareAlpha * 0.3)})`);
-    flareGrad.addColorStop(1,   'rgba(0,0,0,0)');
-    hCtx.shadowBlur = 0;
-    hCtx.fillStyle = flareGrad;
-    hCtx.fillRect(0, 0, size, size);
-  }
+function startBeating(){
+  const el=document.getElementById('beatCount');if(!el)return;
+  beatCount=72;el.textContent=beatCount.toLocaleString();
+  setInterval(spawnSparks,1400);
+  setInterval(()=>{beatCount+=72;el.textContent=beatCount.toLocaleString();},60000);
 }
-
-function startBeating() {
-  const el = document.getElementById('beatCount');
-  if (!el) return;
-  beatCount = 72;
-  el.textContent = beatCount.toLocaleString();
-  setInterval(()=>{ beatCount += 72; el.textContent = beatCount.toLocaleString(); }, 60000);
-
-  heartActive = true;
-  initHeartCanvas();
-  lastTime = performance.now();
-  requestAnimationFrame(drawHeart);
-}
-
-window.addEventListener('resize', ()=>{
-  if (heartActive) initHeartCanvas();
-});
-
 // ══ RAIN ENGINE ══
 const rCanvas=document.getElementById('rainCanvas'),rCtx=rCanvas.getContext('2d');
 let drops=[],rAnimFrame=null;
